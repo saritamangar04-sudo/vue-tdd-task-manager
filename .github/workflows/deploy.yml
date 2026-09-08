@@ -24,7 +24,9 @@ jobs:
         run: npm ci
 
       - name: Run Unit & Integration Tests
-        run: npx vitest run --no-threads
+        env:
+          NODE_OPTIONS: "--no-warnings"
+        run: npx vitest run --poolOptions.threads.singleThread=true
 
       - name: Build Application
         run: npm run build
