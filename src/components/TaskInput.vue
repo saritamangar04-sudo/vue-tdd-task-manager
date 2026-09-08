@@ -9,17 +9,26 @@
 <script setup>
 import { ref } from "vue";
 
+// Define custom events emitted to parent (App.vue)
 const emit = defineEmits(["add-task"]);
+
+// Reactive input state and validation error message
 const title = ref("");
 const errorMessage = ref("");
 
+// Handles form submission, trims whitespace, handles errors, and emits payload
 const handleSubmit = () => {
+  // Edge-case handling: Validate against empty or whitespace-only inputs
   if (!title.value.trim()) {
     errorMessage.value = "Task title cannot be empty";
     return;
   }
+
+  // Clear previous errors and emit task object to parent component
   errorMessage.value = "";
   emit("add-task", { title: title.value.trim() });
+
+  // Reset input field state
   title.value = "";
 };
 </script>
